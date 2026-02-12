@@ -1,0 +1,103 @@
+/* =========================================================
+   Admin Panel Styles
+   ========================================================= */
+
+.admin-sidebar {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    min-height: 100vh;
+}
+
+.admin-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.admin-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.admin-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.admin-table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #edf2f7;
+    color: #4a5568;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    padding: 1rem;
+}
+
+.admin-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.admin-btn-action {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin: 0 2px;
+}
+
+.admin-table-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.admin-page-header {
+    background: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    margin-bottom: 2rem;
+}
+
+.admin-badge-sm {
+    font-size: 0.7rem;
+    padding: 0.35em 0.65em;
+    font-weight: 500;
+}
+
+.admin-text-xs {
+    font-size: 0.75rem;
+}
+
+.stat-gradient-green {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.stat-gradient-orange {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.stat-gradient-purple {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.admin-container-sm {
+    max-width: 800px;
+}
+
+.admin-details-img {
+    height: 300px;
+    object-fit: cover;
+}

@@ -1,19 +1,17 @@
-/* Vehicle Rental System - SparkCar Green Theme */
+/* =========================================================
+   Vehicle Rental System – Pathek Green Theme
+   Purpose: Core design system & homepage UX 
+   ========================================================= */
 
-:root {
-    --primary-color: #00d563;
-    --primary-dark: #00b851;
-    --primary-light: #1fff7a;
-    --secondary-color: #f59e0b;
-    --success-color: #00d563;
-    --danger-color: #ef4444;
-    --dark-bg: #1a1a1a;
-    --light-bg: #f9fafb;
-    --border-color: #e5e7eb;
-    --text-dark: #111827;
-    --text-muted: #6b7280;
-}
+/* ------------------------------
+   CSS VARIABLES (DESIGN TOKENS)
+   ------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Outfit:wght@400;600;700;800&display=swap');
 
+
+/* ------------------------------
+   GLOBAL RESET & BASE TYPOGRAPHY
+   ------------------------------ */
 * {
     margin: 0;
     padding: 0;
@@ -21,403 +19,389 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-dark);
+    font-family: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #111827;
     line-height: 1.6;
-    background-color: #fff;
+    background-color: #f3f4f6;
+    /* Lighter "SaaS" background */
 }
 
-/* Header & Navigation */
+a {
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+/* =========================================================
+   UTILITIES 
+   ========================================================= */
+.card-modern {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease-in-out;
+}
+
+.card-modern:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    transform: translateY(-1px);
+}
+
+.table-modern thead th {
+    background-color: #f9fafb;
+    border-bottom: 2px solid #e5e7eb;
+    color: #6b7280;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1.5rem;
+}
+
+.table-modern tbody td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem 1.5rem;
+    vertical-align: middle;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.badge-modern {
+    padding: 0.35em 0.8em;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.badge-modern.bg-success {
+    background-color: #def7ec !important;
+    color: #03543f !important;
+}
+
+.badge-modern.bg-warning {
+    background-color: #fdf6b2 !important;
+    color: #92400e !important;
+}
+
+.badge-modern.bg-danger {
+    background-color: #fde8e8 !important;
+    color: #9b1c1c !important;
+}
+
+.badge-modern.bg-info {
+    background-color: #e1effe !important;
+    color: #1e429f !important;
+}
+
+/* =========================================================
+   HEADER & NAVIGATION
+   ========================================================= */
 .navbar {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 1rem 0;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 0.75rem 0;
 }
 
 .navbar-brand {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color) !important;
+    font-weight: 800;
+    color: #2E6F40 !important;
+    letter-spacing: -0.025em;
 }
 
 .nav-link {
-    color: var(--text-dark) !important;
+    color: #4b5563 !important;
     font-weight: 500;
+    font-size: 0.95rem;
     padding: 0.5rem 1rem !important;
-    transition: color 0.3s;
+    transition: color 0.15s ease;
 }
 
-.nav-link:hover {
-    color: var(--primary-color) !important;
+.nav-link:hover,
+.nav-link.active {
+    color: #2E6F40 !important;
+    background-color: #f9fafb;
+    border-radius: 6px;
 }
 
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    padding: 0.6rem 1.5rem;
-    font-weight: 600;
-    transition: all 0.3s;
-    border-radius: 5px;
+/* Dropdowns  */
+.dropdown-menu {
+    border: 1px solid #f3f4f6;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 0.5rem;
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-dark);
-    border-color: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 213, 99, 0.3);
+.dropdown-item {
+    font-size: 0.9rem;
+    color: #4b5563;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
 }
 
-.btn-outline-primary {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-    font-weight: 600;
+.dropdown-item:hover {
+    background-color: #f3f4f6;
+    color: #111827;
 }
 
-.btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: #2E6F40;
     color: white;
 }
 
-/* Hero Section - Forest Background Style */
-.hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800"><rect fill="%232d5016" width="1440" height="800"/></svg>');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding: 100px 0;
-    text-align: center;
+/* Primary action buttons */
+.btn-primary,
+.btn-success {
+    background-color: #2E6F40;
+    border-color: #2E6F40;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    background-color: #245632;
+    border-color: #245632;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-secondary {
+    color: #4b5563;
+    border-color: #d1d5db;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+    border-color: #9ca3af;
+}
+
+/* =========================================================
+   HERO SECTION (HOME PAGE)
+   ========================================================= */
+.hero-section-pathek {
+    height: 600px;
     position: relative;
-    overflow: hidden;
-}
-
-.hero-section h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.hero-section h1 .highlight {
-    color: var(--primary-color);
-}
-
-.hero-section p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-/* Search Box */
-.search-box {
-    background: white;
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-}
-
-.search-box .form-control,
-.search-box .form-select {
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-}
-
-.search-box .form-control:focus,
-.search-box .form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(0, 213, 99, 0.25);
-}
-
-/* Vehicle Cards */
-.vehicle-card {
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: all 0.3s;
-    background: white;
-    height: 100%;
-}
-
-.vehicle-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    border-color: var(--primary-color);
-}
-
-.vehicle-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.vehicle-card-body {
-    padding: 1.5rem;
-}
-
-.vehicle-card h5 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-}
-
-.vehicle-type {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background-color: #e8f8f0;
-    color: var(--primary-color);
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.price-tag {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-/* Stats Section */
-.stats-section {
-    background-color: var(--light-bg);
-    padding: 60px 0;
-}
-
-.stat-box {
-    text-align: center;
-    padding: 2rem;
-}
-
-.stat-number {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    display: block;
-}
-
-.stat-label {
-    font-size: 1rem;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
-}
-
-/* How It Works */
-.how-it-works {
-    padding: 80px 0;
-}
-
-.step-box {
-    text-align: center;
-    padding: 2rem;
-}
-
-.step-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--primary-color);
-    color: white;
-    border-radius: 50%;
+    background-color: #1f2937;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 auto 1.5rem;
 }
 
-.step-box h4 {
-    font-weight: 600;
-    margin-bottom: 1rem;
+.hero-video-window {
+    position: relative;
+    width: 100%;
+    max-width: 1900px;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-/* Footer */
-footer {
-    background-color: var(--dark-bg);
-    color: white;
-    padding: 40px 0 20px;
-    margin-top: 60px;
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover;
 }
 
-footer h5 {
-    font-weight: 600;
-    margin-bottom: 1rem;
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.6));
+    z-index: 1;
 }
 
-footer a {
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    transition: color 0.3s;
+.hero-section-pathek .container {
+    position: relative;
+    z-index: 2;
 }
 
-footer a:hover {
-    color: var(--primary-color);
-}
-
-/* Dashboard */
-.dashboard-card {
-    background: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.hero-title-main {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
     margin-bottom: 1.5rem;
+    letter-spacing: -0.025em;
 }
 
-.dashboard-stat {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    border-radius: 10px;
+.hero-title-main .text-success {
+    color: #4ade80 !important;
+    /* Brighter green for contrast */
+}
+
+/* =========================================================
+   SEARCH / BOOKING CARD
+   ========================================================= */
+.search-card-box {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
     padding: 2rem;
-    text-align: center;
-}
-
-.dashboard-stat h3 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-/* Tables */
-.table-container {
-    background: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.table {
-    margin-bottom: 0;
-}
-
-.table thead th {
-    background-color: var(--light-bg);
-    border-bottom: 2px solid var(--border-color);
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-/* Status Badges */
-.badge {
-    padding: 0.4rem 0.8rem;
-    font-weight: 500;
-    font-size: 0.85rem;
-}
-
-.badge-success {
-    background-color: var(--success-color);
-}
-
-.badge-warning {
-    background-color: var(--secondary-color);
-}
-
-.badge-danger {
-    background-color: var(--danger-color);
-}
-
-.badge-primary {
-    background-color: var(--primary-color);
-}
-
-/* Forms */
-.form-container {
-    background: white;
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-width: 600px;
-    margin: 2rem auto;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .form-label {
-    font-weight: 500;
-    color: var(--text-dark);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
     margin-bottom: 0.5rem;
 }
 
 .form-control,
 .form-select {
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.95rem;
+    transition: all 0.2s;
 }
 
 .form-control:focus,
 .form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(0, 213, 99, 0.25);
+    border-color: #2E6F40 !important;
+    box-shadow: 0 0 0 2px rgba(46, 111, 64, 0.2) !important;
+    outline: none;
 }
 
-/* Alerts */
-.alert {
-    border-radius: 5px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+/* =========================================================
+   SERVICE SELECTION (RENT / SELF-DRIVE)
+   ========================================================= */
+.service-cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.alert-success {
-    background-color: #d1fae5;
-    border-color: var(--primary-color);
-    color: var(--primary-dark);
-}
-
-/* Utilities */
-.section {
-    padding: 60px 0;
-}
-
-.section-title {
+.service-option-card {
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px;
     text-align: center;
-    margin-bottom: 3rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.section-title h2 {
-    font-size: 2.5rem;
+.service-option-card.active {
+    border-color: #2E6F40;
+    background: #f0fdf4;
+    color: #245632;
+}
+
+.service-option-card:hover {
+    border-color: #9ca3af;
+}
+
+.service-icon-box i {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+}
+
+.service-text {
+    font-size: 0.875rem;
     font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
 }
 
-.section-title p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
+/* =========================================================
+   HOW IT WORKS SECTION
+   ========================================================= */
+.how-it-works-section {
+    padding: 5rem 0;
+    background: #ffffff;
 }
 
-/* Sign In Button */
-.btn-signin {
-    background-color: var(--primary-color);
+.step-number-circle {
+    width: 64px;
+    height: 64px;
+    background: #2E6F40;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(46, 111, 64, 0.4);
+}
+
+.step-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.step-description {
+    font-size: 1rem;
+    color: #6b7280;
+}
+
+/* =========================================================
+   VEHICLE CARDS
+   ========================================================= */
+.vehicle-card-style {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #f3f4f6;
+}
+
+.vehicle-card-style:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer-modern {
+    background-color: #111827;
+    color: #9ca3af;
+    padding: 4rem 0 2rem;
+}
+
+.footer-heading {
     color: white;
-    padding: 0.6rem 1.5rem;
-    border-radius: 5px;
-    font-weight: 600;
-    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
 }
 
-.btn-signin:hover {
-    background-color: var(--primary-dark);
+.footer-links a {
+    color: #9ca3af;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
     color: white;
 }
 
-/* Responsive */
+/* =========================================================
+   RESPONSIVE DESIGN 
+   ========================================================= */
 @media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2rem;
+    .hero-title-main {
+        font-size: 2.5rem;
     }
-    
-    .hero-section p {
-        font-size: 1rem;
-    }
-    
-    .search-box {
+
+    .search-card-box {
         padding: 1.5rem;
-    }
-    
-    .section-title h2 {
-        font-size: 2rem;
     }
 }

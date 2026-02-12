@@ -1,268 +1,157 @@
 <?php
 /**
- * Booking Controller
+ * BookingController.php
+ * Controls the booking process, allowing renters to create new bookings
+ * and view their booking history.
  */
 
-class BookingController {
+class BookingController
+{
+
+    private $db;
     private $bookingModel;
     private $vehicleModel;
-    private $feedbackModel;
 
-    public function __construct() {
+    public function __construct()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: " . BASE_URL . "/index.php?page=auth&action=login");
+            exit;
+        }
+        $this->db = Database::getInstance()->getConnection();
+        require_once APP_PATH . '/models/Booking.php';
+        require_once APP_PATH . '/models/Vehicle.php';
         $this->bookingModel = new Booking();
         $this->vehicleModel = new Vehicle();
-        $this->feedbackModel = new Feedback();
     }
 
     /**
-     * Renter Dashboard
+     * Shows Booking Form
      */
-    public function renterDashboard() {
-        AuthController::checkRole('renter');
-        
+    public function create()
+    {
+        $vehicle_id = $_GET['id'] ?? null;
+        if (!$vehicle_id) {
+            header("Location: " . BASE_URL . "/index.php?page=vehicle");
+            exit;
+        }
+
+        // Fetch vehicle details
+        $stmt = $this->db->prepare("SELECT * FROM vehicles WHERE vehicle_id = ?");
+        $stmt->bind_param("i", $vehicle_id);
+        $stmt->execute();
+        $vehicle = $stmt->get_result()->fetch_assoc();
+
+        if (!$vehicle || $vehicle['availability_status'] !== 'available') {
+            // Handle unavailable
+            header("Location: " . BASE_URL . "/index.php?page=vehicle");
+            exit;
+        }
+
+        require APP_PATH . '/views/booking/create.php';
+    }
+
+    /**
+     * Store Booking
+     */
+    public function store()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Preparing booking data for insertion. 
+            // Note: owner_id is handled by the model via vehicle relationship to maintain normalization.
+            $data = [
+                'vehicle_id' => $_POST['vehicle_id'],
+                'renter_id' => $_SESSION['user_id'],
+                'pickup_date' => $_POST['pickup_date'],
+                'dropoff_date' => $_POST['dropoff_date'],
+                'pickup_location' => $_POST['pickup_location'],
+            ];
+
+            // 1. Strict Availability Check
+            if (!$this->vehicleModel->isAvailableForDates($data['vehicle_id'], $data['pickup_date'], $data['dropoff_date'])) {
+                $error = "Sorry, this vehicle is not available for the selected dates. Please choose different dates.";
+                // Re-render the form with error (need to fetch vehicle again)
+                $vehicle = $this->vehicleModel->getVehicleById($data['vehicle_id']);
+                require APP_PATH . '/views/booking/create.php';
+                return;
+            }
+
+            // 2. Terms Acceptance Check
+            if (!isset($_POST['terms_accepted'])) {
+                $error = "You must accept the rental policies and guidelines to proceed.";
+                $vehicle = $this->vehicleModel->getVehicleById($data['vehicle_id']);
+                require APP_PATH . '/views/booking/create.php';
+                return;
+            }
+
+            // Calculate days and price
+
+            // Calculate actual days
+            $start = new DateTime($data['pickup_date']);
+            $end = new DateTime($data['dropoff_date']);
+            $days = $end->diff($start)->days + 1;
+            $data['total_days'] = $days;
+            $data['total_price'] = $days * $_POST['price_per_day'];
+
+            // Perform actual database insertion via Booking Model
+
+            $result = $this->bookingModel->createBooking($data);
+
+            if ($result['success']) {
+                header("Location: " . BASE_URL . "/index.php?page=booking&action=myBookings&success=created");
+            } else {
+                // Error handling
+                header("Location: " . BASE_URL . "/index.php?page=vehicle");
+            }
+        }
+    }
+
+    /**
+     * Renter's "My Bookings" Page
+     */
+    public function myBookings()
+    {
         $renter_id = $_SESSION['user_id'];
         $bookings = $this->bookingModel->getBookingsByRenter($renter_id);
 
-        require_once APP_PATH . '/views/renter/dashboard.php';
+        require APP_PATH . '/views/booking/my_bookings.php';
     }
 
     /**
-     * Create booking
+     * Cancel Booking
      */
-    public function create() {
-        AuthController::requireLogin('Please login to book a vehicle');
-
-        if ($_SESSION['user_role'] !== 'renter') {
-            $_SESSION['error'] = 'Only renters can book vehicles';
-            header('Location: /public/index.php');
+    public function cancel()
+    {
+        $booking_id = $_GET['id'] ?? null;
+        if (!$booking_id) {
+            header("Location: " . BASE_URL . "/index.php?page=booking&action=myBookings");
             exit;
         }
 
-        if (!isset($_GET['vehicle_id'])) {
-            header('Location: /public/index.php?page=vehicle');
-            exit;
-        }
-
-        $vehicle_id = $_GET['vehicle_id'];
-        $vehicle = $this->vehicleModel->getVehicleById($vehicle_id);
-
-        if (!$vehicle || $vehicle['approval_status'] !== 'approved') {
-            $_SESSION['error'] = 'Vehicle not available';
-            header('Location: /public/index.php?page=vehicle');
-            exit;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $pickup_date = $_POST['pickup_date'];
-            $dropoff_date = $_POST['dropoff_date'];
-
-            // Validate dates
-            $today = date('Y-m-d');
-            if ($pickup_date < $today) {
-                $_SESSION['error'] = 'Pickup date cannot be in the past';
-                header('Location: /public/index.php?page=booking&action=create&vehicle_id=' . $vehicle_id);
-                exit;
-            }
-
-            if ($dropoff_date <= $pickup_date) {
-                $_SESSION['error'] = 'Drop-off date must be after pickup date';
-                header('Location: /public/index.php?page=booking&action=create&vehicle_id=' . $vehicle_id);
-                exit;
-            }
-
-            // Check availability
-            if (!$this->vehicleModel->isAvailableForDates($vehicle_id, $pickup_date, $dropoff_date)) {
-                $_SESSION['error'] = 'Vehicle is not available for selected dates';
-                header('Location: /public/index.php?page=booking&action=create&vehicle_id=' . $vehicle_id);
-                exit;
-            }
-
-            // Calculate total
-            $datetime1 = new DateTime($pickup_date);
-            $datetime2 = new DateTime($dropoff_date);
-            $interval = $datetime1->diff($datetime2);
-            $total_days = $interval->days;
-            $total_price = $total_days * $vehicle['price_per_day'];
-
-            $booking_data = [
-                'vehicle_id' => $vehicle_id,
-                'renter_id' => $_SESSION['user_id'],
-                'owner_id' => $vehicle['owner_id'],
-                'pickup_date' => $pickup_date,
-                'dropoff_date' => $dropoff_date,
-                'total_days' => $total_days,
-                'total_price' => $total_price
-            ];
-
-            $result = $this->bookingModel->createBooking($booking_data);
-
-            if ($result['success']) {
-                // Update vehicle status
-                $this->vehicleModel->updateAvailabilityStatus($vehicle_id, 'booked');
-                $_SESSION['success'] = 'Booking created successfully!';
-                header('Location: /public/index.php?page=booking&action=renterDashboard');
-            } else {
-                $_SESSION['error'] = $result['message'];
-                header('Location: /public/index.php?page=booking&action=create&vehicle_id=' . $vehicle_id);
-            }
-            exit;
-        }
-
-        require_once APP_PATH . '/views/renter/create-booking.php';
-    }
-
-    /**
-     * View booking details
-     */
-    public function view() {
-        AuthController::requireLogin();
-
-        if (!isset($_GET['id'])) {
-            header('Location: /public/index.php');
-            exit;
-        }
-
-        $booking_id = $_GET['id'];
         $booking = $this->bookingModel->getBookingById($booking_id);
 
-        if (!$booking) {
-            $_SESSION['error'] = 'Booking not found';
-            header('Location: /public/index.php');
-            exit;
-        }
-
-        // Check access
-        $user_id = $_SESSION['user_id'];
-        $role = $_SESSION['user_role'];
-
-        if ($role !== 'admin' && $booking['renter_id'] != $user_id && $booking['owner_id'] != $user_id) {
-            $_SESSION['error'] = 'Access denied';
-            header('Location: /public/index.php');
-            exit;
-        }
-
-        require_once APP_PATH . '/views/renter/booking-details.php';
-    }
-
-    /**
-     * Cancel booking
-     */
-    public function cancel() {
-        AuthController::requireLogin();
-
-        if (isset($_GET['id'])) {
-            $booking_id = $_GET['id'];
-            $booking = $this->bookingModel->getBookingById($booking_id);
-
-            if ($booking && $booking['renter_id'] == $_SESSION['user_id']) {
-                if ($booking['booking_status'] === 'pending') {
-                    $this->bookingModel->cancelBooking($booking_id);
-                    
-                    // Update vehicle status back to available
-                    $this->vehicleModel->updateAvailabilityStatus($booking['vehicle_id'], 'available');
-                    
-                    $_SESSION['success'] = 'Booking cancelled successfully';
-                } else {
-                    $_SESSION['error'] = 'Cannot cancel this booking';
-                }
-            }
-        }
-
-        header('Location: /public/index.php?page=booking&action=renterDashboard');
-        exit;
-    }
-
-    /**
-     * Confirm booking (Owner)
-     */
-    public function confirm() {
-        AuthController::checkRole('owner');
-
-        if (isset($_GET['id'])) {
-            $booking_id = $_GET['id'];
-            $booking = $this->bookingModel->getBookingById($booking_id);
-
-            if ($booking && $booking['owner_id'] == $_SESSION['user_id']) {
-                $this->bookingModel->updateBookingStatus($booking_id, 'confirmed');
-                $_SESSION['success'] = 'Booking confirmed';
-            }
-        }
-
-        header('Location: /public/index.php?page=vehicle&action=ownerDashboard');
-        exit;
-    }
-
-    /**
-     * Complete booking (Owner)
-     */
-    public function complete() {
-        AuthController::checkRole('owner');
-
-        if (isset($_GET['id'])) {
-            $booking_id = $_GET['id'];
-            $booking = $this->bookingModel->getBookingById($booking_id);
-
-            if ($booking && $booking['owner_id'] == $_SESSION['user_id']) {
-                $this->bookingModel->completeBooking($booking_id);
-                
-                // Update vehicle status back to available
-                $this->vehicleModel->updateAvailabilityStatus($booking['vehicle_id'], 'available');
-                
-                $_SESSION['success'] = 'Booking marked as completed';
-            }
-        }
-
-        header('Location: /public/index.php?page=vehicle&action=ownerDashboard');
-        exit;
-    }
-
-    /**
-     * Submit feedback
-     */
-    public function feedback() {
-        AuthController::checkRole('renter');
-
-        if (!isset($_GET['booking_id'])) {
-            header('Location: /public/index.php?page=booking&action=renterDashboard');
-            exit;
-        }
-
-        $booking_id = $_GET['booking_id'];
-        $booking = $this->bookingModel->getBookingById($booking_id);
-
+        // Security check: Only renter can cancel their own pending booking
         if (!$booking || $booking['renter_id'] != $_SESSION['user_id']) {
-            $_SESSION['error'] = 'Invalid booking';
-            header('Location: /public/index.php?page=booking&action=renterDashboard');
+            header("Location: " . BASE_URL . "/index.php?page=booking&action=myBookings&error=unauthorized");
             exit;
         }
 
-        if (!$this->feedbackModel->canGiveFeedback($booking_id, $_SESSION['user_id'])) {
-            $_SESSION['error'] = 'You cannot give feedback for this booking';
-            header('Location: /public/index.php?page=booking&action=renterDashboard');
-            exit;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'booking_id' => $booking_id,
-                'renter_id' => $_SESSION['user_id'],
-                'vehicle_id' => $booking['vehicle_id'],
-                'rating' => $_POST['rating'],
-                'comment' => $_POST['comment']
-            ];
-
-            $result = $this->feedbackModel->addFeedback($data);
-
-            if ($result['success']) {
-                $_SESSION['success'] = $result['message'];
+        if ($booking['booking_status'] === 'pending') {
+            if ($this->bookingModel->cancelBooking($booking_id)) {
+                header("Location: " . BASE_URL . "/index.php?page=booking&action=myBookings&success=cancelled");
             } else {
-                $_SESSION['error'] = $result['message'];
+                header("Location: " . BASE_URL . "/index.php?page=booking&action=myBookings&error=failed");
             }
-
-            header('Location: /public/index.php?page=booking&action=renterDashboard');
-            exit;
+        } else {
+            header("Location: " . BASE_URL . "/index.php?page=booking&action=myBookings&error=cannot_cancel");
         }
+    }
 
-        require_once APP_PATH . '/views/renter/feedback.php';
+    /**
+     * Alias for default routing
+     */
+    public function renterDashboard()
+    {
+        $this->myBookings();
     }
 }

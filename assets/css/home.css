@@ -1,0 +1,424 @@
+/* =========================================================
+   Vehicle Rental System – Home Page Styles
+   Purpose: Homepage-specific components and sections
+   ========================================================= */
+
+/* =========================================================
+   HERO SECTION - Light Green Theme with Homepage Image
+   ========================================================= */
+.hero-section-pathek {
+    min-height: 80vh;
+    position: relative;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
+    padding: 60px 0 120px 0;
+    overflow: hidden;
+}
+
+/* Creating curved bottom using pseudo-element */
+.hero-section-pathek::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: #ffffff;
+    clip-path: ellipse(70% 50% at 50% 100%);
+    z-index: 1;
+}
+
+.hero-title-main {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #000000;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.025em;
+}
+
+.hero-title-main .text-success {
+    color: #2E6F40 !important;
+}
+
+/* Override text-muted to appropriate color for light green background */
+.hero-section-pathek .text-muted {
+    color: #374151 !important;
+}
+
+/* Homepage Image Styling */
+.hero-section-pathek .img-fluid {
+    max-height: 320px;
+    object-fit: contain;
+    border-radius: 15px;
+    margin-left: -50px;
+    /* padding left */
+}
+
+/* CTA Button */
+.hero-section-pathek .btn-success {
+    background: linear-gradient(135deg, #2E6F40, #22c55e);
+    border: none;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.3);
+    transition: all 0.3s ease;
+}
+
+.hero-section-pathek .btn-success:hover {
+    background: linear-gradient(135deg, #15803d, #2E6F40);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px -1px rgba(22, 163, 74, 0.4);
+}
+
+.hero-section-pathek .btn-outline-success {
+    border: 2px solid #2E6F40;
+    color: #2E6F40;
+    background: transparent;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.hero-section-pathek .btn-outline-success:hover {
+    background: #2E6F40;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Light grey button styling */
+.hero-section-pathek .btn-light-grey {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    color: #6c757d;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.hero-section-pathek .btn-light-grey:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    color: #495057;
+    transform: translateY(-2px);
+}
+
+/* Custom layout classes for hero section */
+.hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+.hero-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.hero-col-left {
+    flex: 0 0 50%;
+    /*splitting equally */
+    max-width: 50%;
+    margin-bottom: 3rem;
+    padding-right: 40px;
+    /* Space between text and image */
+}
+
+.hero-col-right {
+    flex: 0 0 50%;
+    /* equally splitting */
+    max-width: 50%;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 1.5rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-image-container {
+    text-align: center;
+}
+
+.hero-image {
+    max-height: 520px;
+    object-fit: contain;
+    width: 110%;
+    margin-left: 0;
+    transform: translateX(20px);
+
+}
+
+/* Button styles */
+.btn-primary-custom {
+    background: linear-gradient(135deg, #2E6F40, #22c55e);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+    background: linear-gradient(135deg, #15803d, #2E6F40);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px -1px rgba(22, 163, 74, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-light-grey-custom {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    color: #6c757d;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-light-grey-custom:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    color: #495057;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+
+.btn-list-vehicle-border {
+    border: 2px solid #28a745 !important;
+}
+
+/* =========================================================
+   FAQ SECTION
+   ========================================================= */
+.faq-section {
+    padding: 60px 0;
+    background: #fdfdfd;
+}
+
+.faq-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.faq-accordion .accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.faq-accordion .accordion-button {
+    font-weight: 600;
+    padding: 1.5rem;
+    color: #1f2937;
+    background: #ffffff;
+}
+
+.faq-accordion .accordion-button:not(.collapsed) {
+    background: #ffffff;
+    color: #2E6F40;
+    box-shadow: none;
+}
+
+.faq-accordion .accordion-button:focus {
+    box-shadow: none;
+}
+
+.faq-accordion .accordion-button::after {
+    background-size: 1.25rem;
+}
+
+.faq-accordion .accordion-body {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   HOW IT WORKS SECTION
+   ========================================================= */
+.how-it-works-section {
+    padding: 3rem 0;
+    background: #ffffff;
+}
+
+.step-number-circle {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #2E6F40, #22c55e);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.step-number-circle:hover {
+    transform: scale(1.1);
+}
+
+.step-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #1f2937;
+}
+
+.step-description {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+/* How it works layout */
+.how-it-works-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.how-it-works-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.step-col {
+    flex: 0 0 calc(25% - 1.125rem);
+    min-width: 250px;
+}
+
+.step-item {
+    text-align: center;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+@media (max-width: 768px) {
+    .hero-title-main {
+        font-size: 2.5rem;
+    }
+
+    .hero-section-pathek {
+        padding: 60px 0;
+        min-height: auto;
+    }
+
+    .hero-col-left,
+    .hero-col-right {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn-primary-custom,
+    .btn-light-grey-custom {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .step-col {
+        flex: 0 0 calc(50% - 0.75rem);
+        min-width: 200px;
+    }
+
+    .partner-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .partner-title {
+        font-size: 1.75rem;
+    }
+
+    .how-it-works-section {
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title-main {
+        font-size: 2rem;
+    }
+
+    .step-col {
+        flex: 0 0 100%;
+        min-width: auto;
+    }
+
+    .hero-section-pathek .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .hero-section-pathek .d-flex.gap-3 {
+        flex-direction: column;
+    }
+}
+
+/* =========================================================
+   CONTACT FORM SUCCESS STYLING
+   ========================================================= */
+.success-icon {
+    font-size: 4rem;
+}
+
+/* =========================================================
+   CONTACT PAGE STYLING
+   ========================================================= */
+.map-iframe {
+    border: 0;
+}
+
+.contact-hero-bg {
+    background-image: url('../images/contact_page.webp');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 100px 0;
+
+}
+
+.contact-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}

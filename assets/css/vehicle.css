@@ -1,0 +1,330 @@
+/* =========================================================
+   Vehicle Rental System – Vehicle Styles
+   Purpose: Vehicle browsing, details, and management
+   ========================================================= */
+
+/* =========================================================
+   VEHICLE CARDS
+   ========================================================= */
+.vehicle-card-style {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #f3f4f6;
+}
+
+.vehicle-card-style:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Vehicle image styling */
+.vehicle-card-style .card-img-top {
+    height: 120px;
+    object-fit: cover;
+}
+
+.vehicle-card-style .card-body {
+    padding: 0.75rem;
+}
+
+/* Vehicle details page image */
+.vehicle-details-image {
+    height: 500px;
+    object-fit: cover;
+}
+
+/* Small icons in vehicle specs */
+.vehicle-spec-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+/* Small text labels */
+.vehicle-spec-label {
+    font-size: 0.7rem;
+}
+
+/* Price display */
+.vehicle-price-text {
+    font-size: 0.7em;
+}
+
+/* Filter button styling */
+.filter-apply-btn {
+    background-color: #2E6F40;
+    border: none;
+}
+
+/* Breadcrumb styling */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Vehicle details specifications */
+.vehicle-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.vehicle-spec-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.vehicle-spec-item i {
+    color: #2E6F40;
+    font-size: 1.25rem;
+}
+
+.vehicle-spec-content small {
+    display: block;
+    font-size: 0.7rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+/* Vehicle gallery */
+.vehicle-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.vehicle-gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.vehicle-gallery .main-image {
+    grid-row: span 2;
+    height: 410px;
+}
+
+/* Reviews section */
+.reviews-section {
+    margin-top: 3rem;
+}
+
+.review-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: white;
+}
+
+.review-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.review-rating {
+    color: #f59e0b;
+}
+
+.review-date {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+/* Owner dashboard vehicle management */
+.owner-vehicle-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.owner-vehicle-header {
+    padding: 1rem;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.owner-vehicle-body {
+    padding: 1rem;
+}
+
+.vehicle-status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-available {
+    background-color: #def7ec;
+    color: #03543f;
+}
+
+.status-maintenance {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-booked {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Vehicle creation form */
+.vehicle-form-section {
+    margin-bottom: 2rem;
+}
+
+.image-upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+
+.image-upload-area:hover {
+    border-color: #2E6F40;
+}
+
+.image-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.image-preview-item {
+    position: relative;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .vehicle-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .vehicle-gallery .main-image {
+        grid-row: span 1;
+        height: 200px;
+    }
+
+    .vehicle-specs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Additional vehicle styling classes */
+.vehicle-card-image {
+    height: 120px;
+    object-fit: cover;
+}
+
+.carousel-image {
+    height: 500px;
+    object-fit: cover;
+}
+
+.spec-label {
+    font-size: 0.7rem;
+}
+
+.seat-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.8;
+}
+
+.seat-icon-large {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.price-per-unit {
+    font-size: 0.7em;
+}
+
+.reviewer-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+.review-date {
+    font-size: 0.75rem;
+}
+
+.vehicle-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.btn-apply-filters {
+    background: linear-gradient(135deg, #15803d, #2E6F40);
+    border: none;
+    color: white !important;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-apply-filters:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px -1px rgba(22, 163, 74, 0.4);
+    background: linear-gradient(135deg, #2E6F40, #22c55e);
+}
+
+/* =========================================================
+   OWNER DASHBOARD STYLES
+   ========================================================= */
+.owner-stats-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.section-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.contact-info {
+    font-size: 0.75rem;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+}
+
+/* =========================================================
+   OWNER BOOKINGS STYLES
+   ========================================================= */
+.duration-text {
+    font-size: 0.7rem;
+}
+
+/* Rating Design */
+.rating-input select {
+    padding-right: 2.5rem !important;
+    min-width: 140px;
+}

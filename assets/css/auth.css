@@ -1,77 +1,71 @@
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+/* =========================================================
+   Auth Styles (Login, Register)
+   ========================================================= */
 
-body {
-    margin: 0;
-    background: #f4f6f9;
-}
-
-.auth-container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.auth-box {
-    background: #fff;
-    width: 420px;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-    text-align: center;
-}
-
-.auth-logo img {
-    width: 180px;
-    margin-bottom: 20px;
-}
-
-.auth-box h2 {
-    margin-bottom: 20px;
-}
-
-.auth-box input,
-.auth-box select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-}
-
-.auth-box button {
-    width: 100%;
-    padding: 12px;
-    background: #1ecb15;
-    color: #fff;
+.auth-modal-content {
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.auth-box button:hover {
-    background: #17b10f;
+.auth-form-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
 }
 
-.auth-links {
-    margin-top: 15px;
+.auth-input-group {
+    position: relative;
+}
+
+.auth-password-toggle {
+    background: transparent;
+    border: none;
+    padding-right: 8px;
+}
+
+.auth-password-toggle i {
     font-size: 14px;
 }
 
-.auth-links a {
-    color: #1ecb15;
+.auth-link-secondary {
+    color: #3d9455;
     text-decoration: none;
-    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s;
 }
 
-.error {
-    color: red;
-    margin-bottom: 10px;
+.auth-link-secondary:hover {
+    color: #245632;
+}
+
+.auth-footer-text {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.verify-modal-header {
+    background-color: rgba(46, 111, 64, 0.1);
+    padding: 1.5rem 0;
+}
+
+.verify-icon-container {
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.hover-text-success {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hover-text-success:hover {
+    color: #198754;
 }

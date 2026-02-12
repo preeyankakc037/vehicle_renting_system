@@ -1,13 +1,19 @@
 <?php
 /**
+ * rentalpolicy.php
+ * Model handling standard rental policies and terms.
+ */
+/**
  * Rental Policy Model
  */
 
-class RentalPolicy {
+class RentalPolicy
+{
     private $db;
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = Database::getInstance();
         $this->conn = $this->db->getConnection();
     }
@@ -15,10 +21,11 @@ class RentalPolicy {
     /**
      * Get all active policies
      */
-    public function getActivePolicies() {
+    public function getActivePolicies()
+    {
         $query = "SELECT * FROM rental_policies WHERE is_active = TRUE ORDER BY policy_id ASC";
         $result = $this->conn->query($query);
-        
+
         $policies = [];
         while ($row = $result->fetch_assoc()) {
             $policies[] = $row;
@@ -29,10 +36,11 @@ class RentalPolicy {
     /**
      * Get all policies
      */
-    public function getAllPolicies() {
+    public function getAllPolicies()
+    {
         $query = "SELECT * FROM rental_policies ORDER BY policy_id ASC";
         $result = $this->conn->query($query);
-        
+
         $policies = [];
         while ($row = $result->fetch_assoc()) {
             $policies[] = $row;
@@ -43,7 +51,8 @@ class RentalPolicy {
     /**
      * Add policy
      */
-    public function addPolicy($data) {
+    public function addPolicy($data)
+    {
         $policy_name = $this->conn->real_escape_string($data['policy_name']);
         $policy_description = $this->conn->real_escape_string($data['policy_description']);
         $policy_value = $this->conn->real_escape_string($data['policy_value']);
@@ -57,8 +66,9 @@ class RentalPolicy {
     /**
      * Update policy
      */
-    public function updatePolicy($policy_id, $data) {
-        $policy_id = (int)$policy_id;
+    public function updatePolicy($policy_id, $data)
+    {
+        $policy_id = (int) $policy_id;
         $policy_name = $this->conn->real_escape_string($data['policy_name']);
         $policy_description = $this->conn->real_escape_string($data['policy_description']);
         $policy_value = $this->conn->real_escape_string($data['policy_value']);
@@ -75,8 +85,9 @@ class RentalPolicy {
     /**
      * Toggle policy status
      */
-    public function togglePolicyStatus($policy_id) {
-        $policy_id = (int)$policy_id;
+    public function togglePolicyStatus($policy_id)
+    {
+        $policy_id = (int) $policy_id;
         $query = "UPDATE rental_policies SET is_active = NOT is_active WHERE policy_id = $policy_id";
         return $this->conn->query($query);
     }
@@ -84,8 +95,9 @@ class RentalPolicy {
     /**
      * Delete policy
      */
-    public function deletePolicy($policy_id) {
-        $policy_id = (int)$policy_id;
+    public function deletePolicy($policy_id)
+    {
+        $policy_id = (int) $policy_id;
         $query = "DELETE FROM rental_policies WHERE policy_id = $policy_id";
         return $this->conn->query($query);
     }
