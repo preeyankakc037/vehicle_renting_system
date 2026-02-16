@@ -97,7 +97,7 @@ The system supports three distinct roles:
 
 Database file available in:
 ```
-/SQL/id25123827.sql
+/sql/id25123827.sql
 ```
 
 Import directly into **phpMyAdmin** to initialize the system.
